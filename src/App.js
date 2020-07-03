@@ -7,9 +7,13 @@ import POS from './components/POS';
 import { BrowserRouter } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import Inventory from './components/Inventory';
+import ProductManager from './components/ProductManager';
+import { Provider, useSelector } from 'react-redux'
+import store from './store'
+
 function App() {
   return (
-
+<Provider store={store}>
     <React.Fragment>
       <Admin />
     <Grid
@@ -21,12 +25,13 @@ function App() {
                     >
         <Route path="/" exact component={POS} />
       <Route path="/inventory" component={Inventory} />
-      <Route path="/prices" component={POS} />
+          <Route path="/prices" component={POS} />
+          <Route path="/productmanager" component={ProductManager} />
                         
                     </Grid>
       </Grid>
       </React.Fragment>
-
+      </Provider>
   );
 }
 

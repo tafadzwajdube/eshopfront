@@ -32,6 +32,7 @@ export default function Header(props) {
     };
   });
   const handleDrawerToggle = () => {
+    console.log('gsjdssjhhjh')
     setMobileOpen(!mobileOpen);
   };
   const headerColorChange = () => {
@@ -53,7 +54,7 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
+  const { color, rightLinks, leftLinks, mobileLinks, brand, fixed, absolute } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
@@ -62,21 +63,9 @@ export default function Header(props) {
   });
   const brandComponent = <Button className={classes.title}>{brand}</Button>;
   return (
+    <React.Fragment>
     <AppBar className={appBarClasses}>
-      <Toolbar className={classes.container}>
-        {leftLinks !== undefined ? brandComponent : null}
-        <div className={classes.flex}>
-          {leftLinks !== undefined ? (
-            <Hidden smDown implementation="css">
-              {leftLinks}
-            </Hidden>
-          ) : (
-            brandComponent
-          )}
-        </div>
-        <Hidden smDown implementation="css">
-          {rightLinks}
-        </Hidden>
+        <Toolbar className={classes.container}>
         <Hidden mdUp>
           <IconButton
             color="inherit"
@@ -86,6 +75,24 @@ export default function Header(props) {
             <Menu />
           </IconButton>
         </Hidden>
+        {leftLinks !== undefined ? brandComponent : null}
+        <div className={classes.flex}>
+          {leftLinks !== undefined ? (
+            <Hidden smDown implementation="css">
+              {leftLinks}
+            </Hidden>
+          ) : (
+            brandComponent
+          )}
+          </div>
+          <Hidden mdUp>
+        {mobileLinks}
+        </Hidden>
+        <Hidden smDown implementation="css">
+          {rightLinks}
+        </Hidden>
+        
+        
       </Toolbar>
       <Hidden mdUp implementation="js">
         <Drawer
@@ -104,6 +111,8 @@ export default function Header(props) {
         </Drawer>
       </Hidden>
     </AppBar>
+   
+    </React.Fragment>
   );
 }
 

@@ -23,10 +23,30 @@ import profileImage from "../assets/img/faces/avatar.jpg";
 
 import styles from "../assets/jss/material-kit-react/views/componentsSections/navbarsStyle.js";
 import { Toolbar } from "@material-ui/core";
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import IconButton from '@material-ui/core/IconButton';
+import { BrowserRouter as Router, Route, NavLink, Link } from 'react-router-dom'
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const useStyles = makeStyles(styles);
 
 export default function SectionNavbars() {
+
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+
+//drop down menu
+
+const handleMenu = event => {
+  setAnchorEl(event.currentTarget);
+};
+
+const handleClose = () => {
+  setAnchorEl(null);
+};
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -74,9 +94,57 @@ export default function SectionNavbars() {
                 </ListItem>
               </List>
             }
+        
+        mobileLinks={
+          <List className={classes.list}>
+          <ListItem className={classes.listItem}>
+          <IconButton
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleMenu}
+          color="inherit"
+          edge="end"    
+        >
+          <SettingsIcon />
+            </IconButton>
+          
+    
+        <Menu
+          id="menu-appbar"
+          elevation={0}
+          anchorEl={anchorEl}
+          getContentAnchorEl={null}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          open={open}
+          onClose={handleClose}
+        >
+                <MenuItem onClick={handleClose}><NavLink style={{
+                  color: 'black',
+                  textTransform: 'none !important',
+                  textDecoration: 'none',
+                  fontWeight: 'normal'
+                }}
+                  to="/productmanager" color="inherit">Product Manager</NavLink></MenuItem>
+              <MenuItem onClick={handleClose}>Sales Manager</MenuItem>
+            
+              
+              </Menu>
+            </ListItem>
+            </List>
+
+        }
       />
 
-      <Toolbar/>
+      
       </React.Fragment>
 
       

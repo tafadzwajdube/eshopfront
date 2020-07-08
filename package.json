@@ -1,7 +1,7 @@
 {
   "name": "eshopfront",
   "version": "0.1.0",
-  "homepage": "https://eshopfront.github.com/tafadzwajdube/",
+  "homepage": "http://tafadzwajdube.github.io/eshopfront",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",

@@ -47,9 +47,11 @@ export default function Admin() {
       }
 
     return (
-        <Router >
+       
             
-        <div><Grid
+        <div>
+             <Router basename="/mystore"/>
+            <Grid
         container
         direction="row"
         justify="center"
@@ -82,7 +84,7 @@ export default function Admin() {
             </Grid>
                 <hr></hr>
             </div>
-        </Router>
+        
            
     )
 }

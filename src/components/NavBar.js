@@ -138,7 +138,7 @@ const handleClose = () => {
           open={open}
           onClose={handleClose}
               >
-                <Router >
+                <Router  basename="/mystore"/>
                 <MenuItem onClick={handleClose}><NavLink style={{
                   color: 'black',
                   textTransform: 'none !important',
@@ -155,7 +155,7 @@ const handleClose = () => {
                   fontWeight: 'normal'
                 }}to="/inventorymanager" color="inherit">Inventory Manager</NavLink></MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                </Router>
+             
               
               </Menu>
             </ListItem>

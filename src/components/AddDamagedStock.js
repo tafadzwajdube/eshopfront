@@ -33,7 +33,7 @@ import { clearErrors } from '../actions/errorActions'
 import { fetchBrands } from "../actions/brandActions.js";
 
 
-export default function AddStock() {
+export default function AddDamagedStock() {
   const dispatch = useDispatch();
 
   function NumberFormatCustom(props) {
@@ -279,7 +279,7 @@ export default function AddStock() {
         }
 
         console.log(stock)
-      dispatch(newStock(stock));
+    //  dispatch(newDamagedStock(stock));
       dispatch(fetchBrands());
        
 
@@ -346,10 +346,9 @@ export default function AddStock() {
 
     return (
 
-      <React.Fragment>
-        <div style={{paddingLeft: '10px', paddingRight:'10px'}}>
+        <React.Fragment>
 <br></br>
-            <Button variant="contained" color="primary" onClick={handleOpen}>Add item <AddIcon/></Button>
+            <Button variant="contained" color="secondary" onClick={handleOpen}>Add Damaged item</Button>
 
             <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="spanning table">
@@ -425,7 +424,7 @@ export default function AddStock() {
                                                 color="primary"
                                                 onClick={handleStockClick}
                                     >
-                                        Stock
+                                        Submit
                                     </Button> 
                                 </div>    
                                 <div style={{paddingTop:"3px", width:"50%"}}>
@@ -533,8 +532,7 @@ export default function AddStock() {
                     label="Cost"
                     name="cost"
                     onChange={handleCost}
-                      value={state.cost}
-                      type='number'
+                    value={state.cost}
                   />        
 
         {/*         <TextField
@@ -555,8 +553,7 @@ export default function AddStock() {
                     name="quantity"
                     value={state.quantity}
                                                onChange={handleChanged}
-                      style={{ width: "60px" }}
-                      type='number'
+                                            style={{width:"60px"}}
                                 
                                             
                                 />        
@@ -574,13 +571,12 @@ export default function AddStock() {
                                 color="primary"
                                 onClick={addItem}
                                     >
-                    Add
+                                Add
                             </Button>
-                            <span style={{paddingLeft:"10px"}}></span>
                             <Button
                                     style={{paddingLeft:"3px", width:"90px"}}
                                     variant="contained"
-                                color="secondary"
+                                color="primary"
                                 onClick={handleClose}
                                     >
                                         Cancel
@@ -594,7 +590,7 @@ export default function AddStock() {
             
 
             
-      </div>  
+            
         </React.Fragment>
     )
 }

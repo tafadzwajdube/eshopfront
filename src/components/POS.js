@@ -24,16 +24,19 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Swal from 'sweetalert2';
+import { connect, useSelector, useDispatch } from 'react-redux';
 
-
+import { newSale } from '../actions/saleActions'
 
 export default function POS() {
+
+  const dispatch = useDispatch();
     const [myRows, setRows] = useState(
         [ ]
    )
 
     const TAX_RATE = 0;
-
+    
     /* const useStyles = makeStyles({
       table: {
         minWidth: 100,
@@ -101,33 +104,13 @@ export default function POS() {
         chosenbrand:{}
       });
 
-    
-    const categories = [
-        { id: 1, name: "Groceries" },
-        { id: 2, name: "Household & Personal care" }
-    ]
+   
 
-    const products = [
-        {
-            id: 1, name: 'Rice', brands: 
-                [
-                    { id: 1, name: "Spekko 2kg", zim_price_rand: 20 },
-                    { id: 2, name: "Spekko 5kg", zim_price_rand: 50 },
-                    {id:3, name:"Spekko 10kg",zim_price_rand:120 }
-                ]    
-            
-        },
-        {
-            id: 2, name: "Sugar", brands: 
-                [
-                    { id: 4, name: "GoldStar White 2kg", zim_price_rand: 20 },
-                    { id: 5, name: "GoldStar Brown 2kg", zim_price_rand: 30 },
-                    {id:6, name:"Hullet White 2kg",zim_price_rand:25 }
-                ]    
-            
-        }
-    ]
-    
+      const errors = useSelector(state => state.error.errors)
+      const success = useSelector(state => state.error.success)
+  const products = useSelector(state => state.products.items)
+  const categories = useSelector(state => state.categories.items)
+  
     const [open, setOpen] = React.useState(false);
     const [x, setX] = React.useState(1);
 
@@ -147,8 +130,8 @@ export default function POS() {
         console.log(myRows)
         var xrows = myRows;
         const cbrand=state.chosenbrand
-        const price = priceRow(state.quantity, cbrand.zim_price_rand);
-        xrows.push({id:cbrand.id, item: state.brand, quantity: state.quantity, unit: cbrand.zim_price_rand, price: price });
+        const price = priceRow(state.quantity, cbrand.price_zim_rand);
+        xrows.push({product_id:state.productID, id:cbrand.id, item: state.brand, quantity: state.quantity, unit: cbrand.price_zim_rand, price: price });
 
         setRows(xrows);
         var d = x +1;
@@ -163,7 +146,8 @@ export default function POS() {
             ['product']: '',
             ['brand']: '',
             ['mybrands']: [],
-            ['chosenbrand']:{}
+          ['chosenbrand']: {},
+            ['productID']:''
           });
 
     }
@@ -180,7 +164,8 @@ export default function POS() {
             const myproduct = products.find(p => p.name == nameid);
             console.log(myproduct)
             setState({
-                ...state,
+              ...state,
+              ['productID']:myproduct.id,
                 ['mybrands']: myproduct.brands,
                 [name]: event.target.value,
             });
@@ -220,6 +205,7 @@ export default function POS() {
         myRows.map(row => {
             const item = {
                 
+              product_id:row.product_id,
                 brand_id: row.id,
                 quantity: row.quantity,
                 unit_cost_rand: row.unit,
@@ -230,11 +216,12 @@ export default function POS() {
             items.push(item)
         } )
      const   sale = {
-            items: items,
+            products: items,
             total_price:invoiceTotal,
         }
 
-        console.log(sale)
+      console.log(sale)
+      dispatch(newSale(sale))
 
         setRows([])
     }
@@ -249,18 +236,26 @@ export default function POS() {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, Make Sale!'
           }).then((result) => {
-            if (result.value) {
-              Swal.fire(
-                'Account Debited!',
-                'Sale has been made.',
-                'success'
-              ).then(
-                  handleSale
-              ).then(
-              //  setSold(true)
-                  console.log('helalsnn')
-              )
+          handleSale()
+          if (result.value && errors) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+              footer: {errors}
               }
+              ).then(
+              //  
+              console.log('helalsnn')
+            )
+          }
+          else {
+            Swal.fire(
+              'Successful!',
+              'Sale has been added.',
+              'success'
+            )
+          }
             
           })
     }
@@ -283,12 +278,35 @@ export default function POS() {
           })
       }
     
+  
+  const add = () => {
+    
+    let q = state.quantity
+    q = q + 1
+    setState({
+      ...state,
+      ['quantity']: q
+    })
+  }
+
+  const subtract = () => {
+    
+    let q = state.quantity
+    q = q - 1
+    if (q < 0)
+      q=0
+    setState({
+      ...state,
+      ['quantity']: q
+    })
+  }
 
     return (
 
-        <React.Fragment>
+      <React.Fragment>
+        <div style={{paddingLeft: '10px', paddingRight:'10px'}}>
 <br></br>
-            <Button variant="contained" color="primary" onClick={handleOpen}>Add</Button>
+            <Button variant="contained" color="primary" onClick={handleOpen}>Add <AddIcon/></Button>
 
             <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="spanning table">
@@ -478,7 +496,8 @@ export default function POS() {
                          <IconButton
                         size="small"
                          aria-label="remove"
-                         color="primary"
+                          color="primary"
+                          onClick={subtract}
                               >
                       <RemoveIcon  />
                     </IconButton>      
@@ -493,13 +512,14 @@ export default function POS() {
                                  inputProps={{
                                     name: 'quantity',
                                     id: 'quantity',
-                                            }}
+                          }}
+                          type='number'
                                             
                                 />        
                     </Grid>
                     <Grid
                     item>
-                              <IconButton aria-label="add"
+                              <IconButton  onClick={add}  aria-label="add"
                                color="secondary">
                         <AddIcon/>
                       </IconButton>                              
@@ -518,14 +538,16 @@ export default function POS() {
                                     style={{width:"90px"}}
                                     variant="contained"
                                 color="primary"
-                                onClick={addItem}
+                    onClick={addItem}
+                   
                                     >
-                                Add
+                    Add
                             </Button>
+                  <span style={{paddingLeft:"10px"}}></span>
                             <Button
-                                    style={{paddingLeft:"3px", width:"90px"}}
+                                    style={{paddingLeft:"10px", width:"90px"}}
                                     variant="contained"
-                                color="primary"
+                                color="secondary"
                                 onClick={handleClose}
                                     >
                                         Cancel
@@ -539,7 +561,7 @@ export default function POS() {
             
 
             
-            
+      </div>
         </React.Fragment>
     )
 }

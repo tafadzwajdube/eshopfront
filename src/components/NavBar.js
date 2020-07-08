@@ -28,12 +28,16 @@ import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import { BrowserRouter as Router, Route, NavLink, Link } from 'react-router-dom'
 import SettingsIcon from '@material-ui/icons/Settings';
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { logout } from '../actions/userActions'
+import { withRouter } from 'react-router';
 
 const useStyles = makeStyles(styles);
 
-export default function SectionNavbars() {
+function NavBar(props) {
 
 
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -46,7 +50,14 @@ const handleMenu = event => {
 
 const handleClose = () => {
   setAnchorEl(null);
-};
+  };
+
+  const handleLogout = () => {
+    dispatch(logout(() => {
+      props.history.push('/')
+  }));
+    setAnchorEl(null);
+  };
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -126,7 +137,8 @@ const handleClose = () => {
           }}
           open={open}
           onClose={handleClose}
-        >
+              >
+                <Router basename="/mystore">
                 <MenuItem onClick={handleClose}><NavLink style={{
                   color: 'black',
                   textTransform: 'none !important',
@@ -134,8 +146,16 @@ const handleClose = () => {
                   fontWeight: 'normal'
                 }}
                   to="/productmanager" color="inherit">Product Manager</NavLink></MenuItem>
-              <MenuItem onClick={handleClose}>Sales Manager</MenuItem>
-            
+                <MenuItem onClick={handleClose}>Sales Manager</MenuItem>
+                <MenuItem onClick={handleClose}>
+                <NavLink style={{
+                  color: 'black',
+                  textTransform: 'none !important',
+                  textDecoration: 'none',
+                  fontWeight: 'normal'
+                }}to="/inventorymanager" color="inherit">Inventory Manager</NavLink></MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Router>
               
               </Menu>
             </ListItem>
@@ -151,3 +171,4 @@ const handleClose = () => {
       
   );
 }
+export default withRouter(NavBar)

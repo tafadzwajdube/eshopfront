@@ -1,13 +1,16 @@
 import React, {useState,useEffect, Fragment} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import {ListItem, Button, Divider, ListItemText, Typography, TextField, Paper} from '@material-ui/core';
+import {ListItem, Button,Grid, Divider, ListItemText, Typography, TextField, Paper} from '@material-ui/core';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import FormControl from '@material-ui/core/FormControl';
+import { newCategory } from "../actions/categoryActions";
 import { connect, useSelector, useDispatch } from 'react-redux';
-
-
+import Alert from '@material-ui/lab/Alert'
+import { clearErrors } from '../actions/errorActions'
+import { newBrand, fetchBrands } from '../actions/brandActions';
+import { fetchProducts } from '../actions/productActions'
 
 
 
@@ -38,9 +41,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function BrandForm({ household }) { 
+export default function BrandForm({ product }) { 
 
+  const dispatch = useDispatch();
+  const [openedForm, setOpenedForm] = React.useState();
 
+  useEffect(() => {
+  
+    const timer = setTimeout(() => {
+      dispatch(clearErrors())
+      
+    }, 5000);
+    return () => clearTimeout(timer);
+
+      }
+      , [openedForm])
    
     const classes = useStyles();
     const [values, setValues] = React.useState({
@@ -61,15 +76,17 @@ export default function BrandForm({ household }) {
         e.preventDefault();
         console.log(values)
 
-        const brand = {
+      const brand = {
+          product:product,
             name: values.name,
             zim_price_rand: values.zimrand,
             zim_price_usd: values.zimusd,
-            sa_price_rand:values.sarand
+            sa_price:values.sarand
             
       }
 
-      
+      dispatch(newBrand(brand))
+      setOpenedForm(1)
 
         setValues({ ...values, 
             name: '',
@@ -79,12 +96,24 @@ export default function BrandForm({ household }) {
       });
       }
     
-  
+      const errors = useSelector(state => state.error.errors)
+      const success = useSelector(state => state.error.success)
     
 return(
-    <Paper variant="outlined" className={classes.paper}>
-       
+  <Paper variant="outlined" className={classes.paper}>
+    
+       {errors && <Alert severity="error">{errors.message}</Alert>} 
+    {success && <Alert severity="success">Successfully  added</Alert>}
+    
     {/**CREATE FORM TO CAPTURE FAMILY DETAILS */}
+    <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-start">
+          <Grid
+          item>
+            
   <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
     <Typography style={{textAlign: 'center'}} variant="overline" display="block" gutterBottom>
         Add Brand
@@ -131,7 +160,10 @@ return(
                 />
                 </div>
       <Button type="submit" size="small"variant="contained" color="primary" className={classes.margin}>Submit</Button>
-  </form>
+          </form>
+          
+          </Grid>
+          </Grid>
   </Paper>
 )
 

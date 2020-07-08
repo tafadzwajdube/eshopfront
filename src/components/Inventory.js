@@ -9,6 +9,8 @@ import ViewInventory from "./ViewInventory.js"
 import { useHistory } from "react-router-dom";
 import { fetchProducts } from '../actions/productActions'
 import { connect, useSelector, useDispatch } from 'react-redux';
+import { fetchBrands } from '../actions/brandActions'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 export default function Inventory() { 
 
@@ -25,7 +27,7 @@ export default function Inventory() {
 
     useEffect(() => {
      
-     
+      dispatch(fetchBrands());
     
     }, [state.view])
 
@@ -67,8 +69,8 @@ export default function Inventory() {
         <div>
 
             <br></br>
-            <Button name='addstock' value={1} onClick={handleAddView}>Add Stock</Button> 
-            <Button name='viewinventory' value={2} onClick={handleInventoryView}>View Inventory</Button>
+            <Button name='addstock' style={{color:'#006699'}} value={1} onClick={handleAddView}>Add Stock <ArrowDropDownIcon/></Button> 
+            <Button name='viewinventory' style={{color:'#006699'}} value={2} onClick={handleInventoryView}>View Inventory <ArrowDropDownIcon/></Button>
             <br></br>
            {state.view==1&& <AddStock/>}
             {state.view == 2 && <ViewInventory />}

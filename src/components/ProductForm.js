@@ -9,7 +9,12 @@ import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-
+import { newProduct } from "../actions/productActions";
+import { connect, useSelector, useDispatch } from 'react-redux';
+import Alert from '@material-ui/lab/Alert'
+import { clearErrors } from '../actions/errorActions'
+import Paper from '@material-ui/core/Paper';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
       '& .MuiTextField-root': {
         margin: theme.spacing(1),
         },
-        width: '70%'
+        width: '100%'
     },
     paper: {
       margin: theme.spacing(1),
@@ -41,15 +46,18 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function ProductForm() {
-    
+  
+  
+  
+  const dispatch = useDispatch();
+
     const classes = useStyles();
     const [name, setName] = useState()
     const[category, setCategory]=useState()
     
+    const categories = useSelector(state => state.categories.items)
 
-    const categories = [
-        {id:1, name:'Groceries'},
-        { id: 2, name: 'Personal care' }]
+   
 
     const handleChange =(e)=> {
       setName(e.target.value)
@@ -60,7 +68,13 @@ export default function ProductForm() {
       };
     const [openedForm, setOpenedForm] = React.useState(false);
     useEffect(() => {
+
+      const timer = setTimeout(() => {
+        dispatch(clearErrors())
         
+      }, 5000);
+      return () => clearTimeout(timer);
+
         }
         , [openedForm])
     
@@ -77,33 +91,39 @@ export default function ProductForm() {
             e.preventDefault();
            
     
-              const category = {
-                  name: name,
-              }
+              const product = {
+                name: name,
+                category:category
+            }
+            dispatch(newProduct(product))
+            setOpenedForm(false)
             
           }
     
-    
+          const errors = useSelector(state => state.error.errors)
+          const success = useSelector(state => state.error.success)
     return (
         <div>
             <br/>
-           
-            <Button onClick={handleOpen}>New Product Type</Button>
-          
+         
+
+            <Button onClick={handleOpen} style={{color:'#006699'}}>New Product <ArrowDropDownIcon/></Button>
+            <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-start">
+          <Grid
+          item>
+            <Paper elevation={3}
+            
+            >
             {openedForm && <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Typography style={{ textAlign: 'center' }} variant="overline" display="block" gutterBottom>
-                    New Product
+            New Product
     </Typography>
-                <div>
-                    <TextField
-                        label="Name"
-                        value={name}
-                        onChange={handleChange}
-                        fullWidth
-            
-                    />
-                </div>
-                <div>
+          
+    <div>
                 <InputLabel htmlFor="category">Category</InputLabel>
                 <Select
                                     native
@@ -116,14 +136,30 @@ export default function ProductForm() {
                                 >
                                      <option aria-label="None" value="" />
           {categories.map(category =>
-            <option value={category.name}>{category.name}</option>
+            <option value={category.id}>{category.name}</option>
                                         )}
                         </Select>
                 </div>
+                <div>
+                    <TextField
+                        label="Name"
+                        value={name}
+                        onChange={handleChange}
+                        fullWidth
+            
+                    />
+                </div>
+                
            
                 <Button type="submit" size="small" variant="contained" color="primary" className={classes.margin}>Submit</Button>
-            </form>
-            }
+                <Button type="submit" size="small" variant="contained" color="secondary" onClick={handleOpen} className={classes.margin}>Cancel</Button>
+            
+              </form>
+             
+              }
+                 </Paper>
+                </Grid>
+                </Grid>
 
             </div>
     )

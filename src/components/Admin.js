@@ -4,11 +4,16 @@ import NavButtons from "./NavButtons"
 import Grid from '@material-ui/core/Grid';
 import POS from './POS'
 import { makeStyles } from "@material-ui/core/styles";
+import { Provider, useSelector } from 'react-redux'
+
 
 
 
 export default function Admin() {
     
+
+    const user = useSelector(state => state.user.loggedin)
+
     const useStyles = makeStyles(theme => ({
         offset: theme.mixins.toolbar,
     }))
@@ -31,7 +36,8 @@ export default function Admin() {
                         
                     xs={12}
                     >
-                        <NavButtons />
+                        {user && <NavButtons />}
+                          
                         
                     </Grid>
             </Grid>

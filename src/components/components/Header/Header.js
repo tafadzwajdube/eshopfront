@@ -15,10 +15,18 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "../../../assets/jss/material-kit-react/components/headerStyle.js";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 
 export default function Header(props) {
+
+  let history = useHistory();
+  const goHome = () => {
+    history.push("/");
+
+}
+
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
@@ -61,7 +69,7 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed
   });
-  const brandComponent = <Button className={classes.title}>{brand}</Button>;
+  const brandComponent = <Button className={classes.title} onClick={goHome}>{brand}</Button>;
   return (
     <React.Fragment>
     <AppBar className={appBarClasses}>
@@ -105,8 +113,9 @@ export default function Header(props) {
           onClose={handleDrawerToggle}
         >
           <div className={classes.appResponsive}>
-            {leftLinks}
-            {rightLinks}
+          {/*   {leftLinks}
+            {rightLinks} */}
+              E-shop
           </div>
         </Drawer>
       </Hidden>

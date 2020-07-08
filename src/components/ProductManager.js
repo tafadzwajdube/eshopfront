@@ -17,6 +17,8 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import BrandForm from './BrandForm'
 import AddIcon from '@material-ui/icons/Add';
 
+import { connect, useSelector, useDispatch } from 'react-redux';
+
 const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
@@ -51,26 +53,12 @@ export default function ProductManager() {
     const [count, setCount] = useState(0);
     const [productid, setProductid] = useState('');
 
-    const products = [
-        {
-            id: 1, name: "Rice", brands: [
-                { id: 1, name: "Spekko 2Kg" },
-                { id: 2, name: "Spekko 5Kg" },
-                {id:3, name:"Spekko 10Kg"}
-            ]
-        },
-
-        {
-            id: 2, name: "Sugar", brands: [
-                { id: 4, name: "Goldstart 2Kg" },
-                { id: 5, name: "Hullet 5Kg" },
-                {id:6, name:"Hullet 10Kg"}
-            ]
-        }
-    ]
+  
+    const products = useSelector(state => state.products.items)
+   
 
     return (
-        <div>
+        <div style={{paddingLeft: '10px', paddingRight:'10px'}}>
             <br/>
            
             <CategoryForm />
@@ -89,7 +77,8 @@ export default function ProductManager() {
                         primary={product.name} //"16125 Nkulumane 12, Ward 20- Coolland"
                         secondary={<React.Fragment>{(productid==product.id) &&
                             <React.Fragment>
-                            {product.brands.map(brand=>< div  key={brand.id}>
+                          {product.brands.map(brand =>
+                            < div key={brand.id} style={{fontSize:'15px', paddingLeft:'10px'}}>
                                 {brand.name}
                 </div>)}
                             </React.Fragment> 

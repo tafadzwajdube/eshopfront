@@ -1,0 +1,26 @@
+RewriteEngine On 
+RewriteCond %{HTTP_HOST} ^tjdube\.com [NC]
+RewriteCond %{SERVER_PORT} 80 
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(.*)$ https://tjdube.com/$1 [R,L]
+
+<Files .htaccess>
+Order allow, deny
+Deny from all
+</Files>
+
+# Deny access to filenames starting with dot(.)
+<FilesMatch "^\.">
+Order allow, deny
+Deny from all
+</FilesMatch>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php56” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php56 .php .php5 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

@@ -110,7 +110,7 @@ const useStyles2 = makeStyles({
   },
 });
 
-export default function ViewInventory() {
+export default function ViewPrices() {
 
   
   const dispatch = useDispatch();
@@ -163,7 +163,8 @@ export default function ViewInventory() {
           <TableRow>
             <TableCell>Product</TableCell>
             <TableCell align="right">Brand</TableCell>
-            <TableCell align="right">Quantity at Hand</TableCell>
+            <TableCell align="right">Zim Rand</TableCell>
+            <TableCell align="right">SA Rand</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -179,7 +180,10 @@ export default function ViewInventory() {
                 {row.name}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.quantity}
+                {row.zim_price_rand}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                {row.sa_price}
               </TableCell>
             </TableRow>
           ))}

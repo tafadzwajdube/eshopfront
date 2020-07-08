@@ -1,4 +1,4 @@
-import { FETCH_PRODUCTS, NEW_PRODUCT, DELETE_PRODUCT } from '../actions/types'
+import { FETCH_SALES, NEW_SALE, DELETE_SALE } from '../actions/types'
 
 const initialState = {
     items: [],
@@ -7,20 +7,19 @@ const initialState = {
 
 
 export default function (state=initialState, action) {
-    console.log("redtest")
+
     switch (action.type) {
-        case FETCH_PRODUCTS:
+        case FETCH_SALES:
             return {
-                
                 ...state,
                 items: action.payload
         } ;
-        case NEW_PRODUCT:
+        case NEW_SALE:
             return {
                 ...state,
                 item:action.payload
             }
-            case DELETE_PRODUCT:
+            case DELETE_SALE:
                 return {
                     ...state,
                     item:action.payload

@@ -1,12 +1,12 @@
 import { FETCH_BRANDS, NEW_BRAND, DELETE_BRAND, GET_ERRORS, POST_SUCCESS, DELETE_SUCCESS } from './types';
 import axios from 'axios'
 
-export function fetcHBrands() {
+export function fetchBrands() {
 
 
   return async function (dispatch) {
         
-    await axios.get("http://eshopapi.test/api/brands")  
+    await axios.get("http://store.ubhejanelabs.com/api/brands")  
           .then(brands => dispatch({
                 type: FETCH_BRANDS,
                 payload:brands.data
@@ -38,7 +38,7 @@ const token0 =localStorage.getItem('access_token')?localStorage.getItem('access_
 return async function (dispatch) {
 
     
-    await axios.post('http://eshopapi.test/api/brand', brand, {
+    await axios.post('http://store.ubhejanelabs.com/api//brand', brand, {
      headers:headers
     }).then(brand => {
 
@@ -93,7 +93,7 @@ export function deleteBrand(id) {
 return async function (dispatch) {
 
     
-    await axios.delete('http://eshopapi.test/api/brand'+id, {
+    await axios.delete('http://store.ubhejanelabs.com/api/brand'+id, {
      headers:headers
     })
       .then(brand => {

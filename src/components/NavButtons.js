@@ -32,10 +32,7 @@ export default function Admin() {
 
     let history = useHistory();
     function handleIClick() {
-        /* axios.get("http://eshopapi.test/api/products")  
-        .then(products => 
-              console.log(products.data)
-        )   */
+        
         setCview(2)
         history.push("/inventory");
     }
@@ -50,7 +47,7 @@ export default function Admin() {
       }
 
     return (
-        <Router basename="/mystore">
+        <Router >
             
         <div><Grid
         container

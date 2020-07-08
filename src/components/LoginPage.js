@@ -14,7 +14,7 @@ function LoginPage() {
     }))
         
     return (
-        // <div style={{backgroundColor:'#b3d9ff', }}>
+       
         <React.Fragment>
          <CssBaseline />
       <Container className='root' style={{backgroundColor:'#80bfff', height:'100%'}}>

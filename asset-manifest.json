@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/tafadzwajdube/static/css/main.5f361e03.chunk.css",
-    "main.js": "/tafadzwajdube/static/js/main.717914a3.chunk.js",
-    "main.js.map": "/tafadzwajdube/static/js/main.717914a3.chunk.js.map",
-    "runtime-main.js": "/tafadzwajdube/static/js/runtime-main.aff28c4d.js",
-    "runtime-main.js.map": "/tafadzwajdube/static/js/runtime-main.aff28c4d.js.map",
-    "static/js/2.84bdfa0d.chunk.js": "/tafadzwajdube/static/js/2.84bdfa0d.chunk.js",
-    "static/js/2.84bdfa0d.chunk.js.map": "/tafadzwajdube/static/js/2.84bdfa0d.chunk.js.map",
-    "index.html": "/tafadzwajdube/index.html",
-    "precache-manifest.b3a0c8eed6b024690b2f8f6f5007c80c.js": "/tafadzwajdube/precache-manifest.b3a0c8eed6b024690b2f8f6f5007c80c.js",
-    "service-worker.js": "/tafadzwajdube/service-worker.js",
-    "static/css/main.5f361e03.chunk.css.map": "/tafadzwajdube/static/css/main.5f361e03.chunk.css.map",
-    "static/js/2.84bdfa0d.chunk.js.LICENSE.txt": "/tafadzwajdube/static/js/2.84bdfa0d.chunk.js.LICENSE.txt",
-    "static/media/avatar.jpg": "/tafadzwajdube/static/media/avatar.f1d71f77.jpg",
-    "static/media/bg.jpg": "/tafadzwajdube/static/media/bg.e5241971.jpg",
-    "static/media/logo.svg": "/tafadzwajdube/static/media/logo.5d5d9eef.svg"
+    "main.css": "/eshopfront/static/css/main.5f361e03.chunk.css",
+    "main.js": "/eshopfront/static/js/main.9ca5327b.chunk.js",
+    "main.js.map": "/eshopfront/static/js/main.9ca5327b.chunk.js.map",
+    "runtime-main.js": "/eshopfront/static/js/runtime-main.c258b9bf.js",
+    "runtime-main.js.map": "/eshopfront/static/js/runtime-main.c258b9bf.js.map",
+    "static/js/2.84bdfa0d.chunk.js": "/eshopfront/static/js/2.84bdfa0d.chunk.js",
+    "static/js/2.84bdfa0d.chunk.js.map": "/eshopfront/static/js/2.84bdfa0d.chunk.js.map",
+    "index.html": "/eshopfront/index.html",
+    "precache-manifest.099adf9306c25217444adea92203cb9f.js": "/eshopfront/precache-manifest.099adf9306c25217444adea92203cb9f.js",
+    "service-worker.js": "/eshopfront/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/eshopfront/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.84bdfa0d.chunk.js.LICENSE.txt": "/eshopfront/static/js/2.84bdfa0d.chunk.js.LICENSE.txt",
+    "static/media/avatar.jpg": "/eshopfront/static/media/avatar.f1d71f77.jpg",
+    "static/media/bg.jpg": "/eshopfront/static/media/bg.e5241971.jpg",
+    "static/media/logo.svg": "/eshopfront/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.aff28c4d.js",
+    "static/js/runtime-main.c258b9bf.js",
     "static/js/2.84bdfa0d.chunk.js",
     "static/css/main.5f361e03.chunk.css",
-    "static/js/main.717914a3.chunk.js"
+    "static/js/main.9ca5327b.chunk.js"
   ]
 }

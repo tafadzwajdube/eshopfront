@@ -16,7 +16,7 @@ export function login(userDetails) {
 return async function (dispatch) {
 
     
-    await axios.post('http://store.ubhejanelabs.com/api/login', userDetails, {
+    await axios.post('https://store.ubhejanelabs.com/api/login', userDetails, {
      headers:headers
     }).then(userDetails => {
                 console.log(userDetails.data.message)
@@ -112,7 +112,7 @@ export function register(userDetails) {
   return async function (dispatch) {
 
     
-    await axios.post('http://store.ubhejanelabs.com/api/register', userDetails, {
+    await axios.post('https://store.ubhejanelabs.com/api/register', userDetails, {
      headers:headers
     })  .then(userDetails => {
 
@@ -163,7 +163,7 @@ export function setuser(token) {
 
   return async function (dispatch) {
         
-    await axios.get("http://store.ubhejanelabs.com/api/user", {
+    await axios.get("https://store.ubhejanelabs.com/api/user", {
       headers:headers
     })  .then(userDetails => {
 
@@ -215,7 +215,7 @@ export function updateUser(password) {
   return async function (dispatch) {
 
     
-    await axios.put('http://store.ubhejanelabs.com/api/user', password, {
+    await axios.put('https://store.ubhejanelabs.com/api/user', password, {
      headers:headers
     }).then(userDetails => {
       dispatch({

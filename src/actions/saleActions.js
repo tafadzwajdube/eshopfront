@@ -6,7 +6,7 @@ export function fetchSales() {
 
   return async function (dispatch) {
         
-    await axios.get("http://store.ubhejanelabs.com/api/sales")  
+    await axios.get("https://store.ubhejanelabs.com/api/sales")  
           .then(sales => dispatch({
                 type: FETCH_SALES,
                 payload:sales.data
@@ -38,7 +38,7 @@ const token0 =localStorage.getItem('access_token')?localStorage.getItem('access_
 return async function (dispatch) {
 
     
-    await axios.post('http://store.ubhejanelabs.com/api/sale', sale, {
+    await axios.post('https://store.ubhejanelabs.com/api/sale', sale, {
      headers:headers
     }).then(sale => {
 
@@ -93,7 +93,7 @@ export function deleteSale(id) {
 return async function (dispatch) {
 
     
-    await axios.delete('http://store.ubhejanelabs.com/api/sale'+id, {
+    await axios.delete('https://store.ubhejanelabs.com/api/sale'+id, {
      headers:headers
     })
       .then(sale => {

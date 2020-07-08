@@ -6,7 +6,7 @@ export function fetchCategories() {
 
   return async function (dispatch) {
         
-    await axios.get("http://store.ubhejanelabs.com/api/categories")  
+    await axios.get("https://store.ubhejanelabs.com/api/categories")  
           .then(categories => dispatch({
                 type: FETCH_CATEGORIES,
                 payload:categories.data
@@ -38,7 +38,7 @@ const token0 =localStorage.getItem('access_token')?localStorage.getItem('access_
 return async function (dispatch) {
 
     
-    await axios.post('http://store.ubhejanelabs.com/api/category', category, {
+    await axios.post('https://store.ubhejanelabs.com/api/category', category, {
      headers:headers
     }).then(category => {
 
@@ -93,7 +93,7 @@ export function deleteCategory(id) {
 return async function (dispatch) {
 
     
-    await axios.delete('http://store.ubhejanelabs.com/api/category'+id, {
+    await axios.delete('https://store.ubhejanelabs.com/api/category'+id, {
      headers:headers
     })
       .then(category => {

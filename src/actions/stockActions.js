@@ -6,7 +6,7 @@ export function fetchStocks() {
 
   return async function (dispatch) {
         
-    await axios.get("http://store.ubhejanelabs.com/api/stocks")  
+    await axios.get("https://store.ubhejanelabs.com/api/stocks")  
           .then(stocks => dispatch({
                 type: FETCH_STOCKS,
                 payload:stocks.data
@@ -38,7 +38,7 @@ const token0 =localStorage.getItem('access_token')?localStorage.getItem('access_
 return async function (dispatch) {
 
     
-    await axios.post('http://store.ubhejanelabs.com/api/stock', stock, {
+    await axios.post('https://store.ubhejanelabs.com/api/stock', stock, {
      headers:headers
     }).then(stock => {
 
@@ -93,7 +93,7 @@ export function deleteStock(id) {
 return async function (dispatch) {
 
     
-    await axios.delete('http://store.ubhejanelabs.com/api/stock'+id, {
+    await axios.delete('https://store.ubhejanelabs.com/api/stock'+id, {
      headers:headers
     })
       .then(stock=> {

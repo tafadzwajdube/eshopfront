@@ -10,7 +10,7 @@ export function fetchProducts() {
   return async function (dispatch) {
   
     
-    await axios.get("http://store.ubhejanelabs.com/api/products")  
+    await axios.get("https://store.ubhejanelabs.com/api/products")  
       .then(products => {
         console.log("inside");
         dispatch({
@@ -45,7 +45,7 @@ const token0 =localStorage.getItem('access_token')?localStorage.getItem('access_
 return async function (dispatch) {
 
     
-    await axios.post('http://store.ubhejanelabs.com/api/product', product, {
+    await axios.post('https://store.ubhejanelabs.com/api/product', product, {
      headers:headers
     }).then(product => {
 
@@ -100,7 +100,7 @@ export function deleteProduct(id) {
 return async function (dispatch) {
 
     
-    await axios.delete('http://store.ubhejanelabs.com/api/product'+id, {
+    await axios.delete('https://store.ubhejanelabs.com/api/product'+id, {
      headers:headers
     })
       .then(product => {

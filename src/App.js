@@ -34,7 +34,7 @@ function App() {
   const myhistory = createBrowserHistory();
 
   return (
-//<Provider store={store}>
+
     <React.Fragment>
       {user && <Admin />}
       <div style={{ height: '100%' }}>

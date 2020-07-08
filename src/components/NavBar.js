@@ -138,7 +138,7 @@ const handleClose = () => {
           open={open}
           onClose={handleClose}
               >
-                <Router  basename="/mystore"/>
+                <Router  >
                 <MenuItem onClick={handleClose}><NavLink style={{
                   color: 'black',
                   textTransform: 'none !important',

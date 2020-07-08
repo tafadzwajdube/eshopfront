@@ -1,7 +1,6 @@
 {
   "name": "eshopfront",
   "version": "0.1.0",
-  "homepage": "http://ubhejanelabs.com/mystore",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",

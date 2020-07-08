@@ -50,7 +50,7 @@ export default function Admin() {
        
             
         <div>
-             <Router basename="/mystore"/>
+             <Router />
             <Grid
         container
         direction="row"

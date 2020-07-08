@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/eshopfront/static/css/main.5f361e03.chunk.css",
+    "main.js": "/eshopfront/static/js/main.fb01ed3f.chunk.js",
+    "main.js.map": "/eshopfront/static/js/main.fb01ed3f.chunk.js.map",
+    "runtime-main.js": "/eshopfront/static/js/runtime-main.c258b9bf.js",
+    "runtime-main.js.map": "/eshopfront/static/js/runtime-main.c258b9bf.js.map",
+    "static/js/2.84bdfa0d.chunk.js": "/eshopfront/static/js/2.84bdfa0d.chunk.js",
+    "static/js/2.84bdfa0d.chunk.js.map": "/eshopfront/static/js/2.84bdfa0d.chunk.js.map",
+    "index.html": "/eshopfront/index.html",
+    "precache-manifest.05667d3c70fa13ec0d5d24ef233fd82d.js": "/eshopfront/precache-manifest.05667d3c70fa13ec0d5d24ef233fd82d.js",
+    "service-worker.js": "/eshopfront/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/eshopfront/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.84bdfa0d.chunk.js.LICENSE.txt": "/eshopfront/static/js/2.84bdfa0d.chunk.js.LICENSE.txt",
+    "static/media/avatar.jpg": "/eshopfront/static/media/avatar.f1d71f77.jpg",
+    "static/media/bg.jpg": "/eshopfront/static/media/bg.e5241971.jpg",
+    "static/media/logo.svg": "/eshopfront/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c258b9bf.js",
+    "static/js/2.84bdfa0d.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.fb01ed3f.chunk.js"
+  ]
+}

@@ -38,7 +38,7 @@ const token0 =localStorage.getItem('access_token')?localStorage.getItem('access_
 return async function (dispatch) {
 
     
-    await axios.post('https://store.ubhejanelabs.com/api//brand', brand, {
+    await axios.post('https://store.ubhejanelabs.com/api/brand', brand, {
      headers:headers
     }).then(brand => {
 

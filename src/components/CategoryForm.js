@@ -49,8 +49,10 @@ export default function CategoryForm() {
   const dispatch = useDispatch();
     
     const classes = useStyles();
-    const [name, setName] = useState()
-    
+    const [name, setName] = useState('')
+
+  const [myerror, setErrors]=useState()
+  
     const handleChange =(e)=> {
       setName(e.target.value)
     };
@@ -60,6 +62,7 @@ export default function CategoryForm() {
         
       const timer = setTimeout(() => {
         dispatch(clearErrors())
+        setErrors('')
         
       }, 5000);
       return () => clearTimeout(timer);
@@ -79,13 +82,16 @@ export default function CategoryForm() {
           const handleSubmit = e => {
             e.preventDefault();
            
-    
+            if (name != '') {
               const category = {
-                  name: name,
+                name: name,
+              }
+              dispatch(newCategory(category))
+              setOpenedForm(false)
             }
-            dispatch(newCategory(category))
-            setOpenedForm(false)
-          }
+            setErrors("Name is required")
+    
+    }
     
           const errors = useSelector(state => state.error.errors)
           const success = useSelector(state => state.error.success)
@@ -95,6 +101,7 @@ export default function CategoryForm() {
            
             {errors && <Alert severity="error">{errors.message}</Alert>} 
         {success && <Alert severity="success">Successfully  added</Alert>}
+       
             <Button onClick={handleOpen} style={{color:'#006699'}}>New Category <ArrowDropDownIcon/></Button>
           
         {openedForm &&
@@ -108,7 +115,8 @@ export default function CategoryForm() {
             <Paper elevation={3}
             
             >
-          <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
+              <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
+              {myerror && <Alert severity="error">{myerror}</Alert>} 
                 <Typography style={{ textAlign: 'center' }} variant="overline" display="block" gutterBottom>
                     New Category
     </Typography>

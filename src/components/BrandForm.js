@@ -45,11 +45,13 @@ export default function BrandForm({ product }) {
 
   const dispatch = useDispatch();
   const [openedForm, setOpenedForm] = React.useState();
+  const [myerror, setErrors] = useState('')
 
   useEffect(() => {
   
     const timer = setTimeout(() => {
       dispatch(clearErrors())
+      setErrors('')
       
     }, 5000);
     return () => clearTimeout(timer);
@@ -74,26 +76,36 @@ export default function BrandForm({ product }) {
     
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(values)
-
-      const brand = {
-          product:product,
-            name: values.name,
-            zim_price_rand: values.zimrand,
-            zim_price_usd: values.zimusd,
-            sa_price:values.sarand
+        
+      if (values.name != '' &&
+        values.zimrand != '' &&
+        values.zimusd != '' &&
+      values.sarand!='') {
+        const brand = {
+          product: product,
+          name: values.name,
+          zim_price_rand: values.zimrand,
+          zim_price_usd: values.zimusd,
+          sa_price: values.sarand
             
+        }
+
+        dispatch(newBrand(brand))
+        setOpenedForm(1)
+
+        setValues({
+          ...values,
+          name: '',
+          zimrand: '',
+          sarand: '',
+          zimusd: ''
+        });
+        
       }
 
-      dispatch(newBrand(brand))
-      setOpenedForm(1)
-
-        setValues({ ...values, 
-            name: '',
-        zimrand: '',
-            sarand: '',
-        zimusd:''
-      });
+      else {
+        setErrors("All fields are required")
+      }
       }
     
       const errors = useSelector(state => state.error.errors)
@@ -114,7 +126,8 @@ return(
           <Grid
           item>
             
-  <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
+        <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
+        {myerror && <Alert severity="error">{myerror}</Alert>} 
     <Typography style={{textAlign: 'center'}} variant="overline" display="block" gutterBottom>
         Add Brand
     </Typography>

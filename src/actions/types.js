@@ -14,6 +14,10 @@ export const FETCH_STOCKS = 'FETCH_STOCKS';
 export const NEW_STOCK = 'NEW_STOCK';
 export const DELETE_STOCK = 'DELETE_STOCK';
 
+export const FETCH_DAMAGED = 'FETCH_DAMAGED';
+export const NEW_DAMAGED = 'NEW_DAMAGED';
+export const DELETE_DAMAGED = 'DELETE_DAMAGED';
+
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const NEW_CATEGORY = 'NEW_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';

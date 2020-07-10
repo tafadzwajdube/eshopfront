@@ -154,7 +154,15 @@ const handleClose = () => {
                   textDecoration: 'none',
                   fontWeight: 'normal'
                 }}to="/inventorymanager" color="inherit">Inventory Manager</NavLink></MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem onClick={handleLogout}>
+                <NavLink style={{
+                  color: 'black',
+                  textTransform: 'none !important',
+                  textDecoration: 'none',
+                  fontWeight: 'normal'
+                  }} to="/" color="inherit">Logout
+                </NavLink>
+                </MenuItem>
              
               
               </Menu>

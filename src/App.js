@@ -24,10 +24,10 @@ function App() {
 
   useEffect(() => {
   
-    const access = localStorage.getItem('access_token')
+    /* const access = localStorage.getItem('access_token')
     if (access) {
       store.dispatch(setuser(access))
-    }
+    } */
 
   }, [])  
   

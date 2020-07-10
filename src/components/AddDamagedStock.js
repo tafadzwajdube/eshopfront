@@ -27,7 +27,7 @@ import Swal from 'sweetalert2';
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { newStock } from "../actions/stockActions";
+import { newDamagedStock } from "../actions/stockActions";
 import Alert from '@material-ui/lab/Alert'
 import { clearErrors } from '../actions/errorActions'
 import { fetchBrands } from "../actions/brandActions.js";
@@ -152,7 +152,7 @@ export default function AddDamagedStock() {
       const products = useSelector(state => state.products.items)
       const categories = useSelector(state => state.categories.items)
     
-    
+      const [myerror,setErrors] = useState()
     const [open, setOpen] = React.useState(false);
     const [x, setX] = React.useState(1);
 
@@ -174,31 +174,41 @@ export default function AddDamagedStock() {
     
   const addItem = () => {
     console.log('cost')
-        console.log(state.cost)
-        var xrows = myRows;
-        const cbrand=state.chosenbrand
+    console.log(state.cost)
+    
+    if (state.category != '' &&
+      state.productID != '' &&
+      state.brand != '' &&
+      state.myunitcost!=''&&
+      state.quantity != '') {
+      var xrows = myRows;
+      const cbrand = state.chosenbrand
       const price = priceRow(state.quantity, state.cost);
       const myunitcost = state.cost / state.quantity;
-        xrows.push({product_id:state.myproductid,id:cbrand.id, item: state.brand, quantity: state.quantity, unit: myunitcost, price: price });
+      xrows.push({ product_id: state.myproductid, id: cbrand.id, item: state.brand, quantity: state.quantity, unit: myunitcost, price: price });
 
-        setRows(xrows);
-        var d = x +1;
-        setX(d)
-        setOpen(false);
+      setRows(xrows);
+      var d = x + 1;
+      setX(d)
+      setOpen(false);
 
-        //clear state
+      //clear state
 
-        setState({
-            ...state,
-            ['category']: '',
-            ['product']: '',
-            ['brand']: '',
-            ['mybrands']: [],
-          ['chosenbrand']: {},
-          ['cost']: '',
-          ['quantity']: '',
-          ['myproductid']:''
-          });
+      setState({
+        ...state,
+        ['category']: '',
+        ['product']: '',
+        ['brand']: '',
+        ['mybrands']: [],
+        ['chosenbrand']: {},
+        ['cost']: '',
+        ['quantity']: '',
+        ['myproductid']: ''
+      });
+    }
+    else {
+      setErrors('All fields are required')
+    }
 
     }
 
@@ -279,8 +289,8 @@ export default function AddDamagedStock() {
         }
 
         console.log(stock)
-    //  dispatch(newDamagedStock(stock));
-      dispatch(fetchBrands());
+     dispatch(newDamagedStock(stock));
+    //  dispatch(fetchBrands());
        
 
         setRows([])
@@ -470,7 +480,8 @@ export default function AddDamagedStock() {
       >
         <Fade in={open}>
                     <div className={classes.paper}>
-        <form style={{width:'250px'}}>
+              <form style={{ width: '250px' }}>
+              {myerror&&<span style={{ color: 'red' }}>{myerror}</span>}
           <FormControl className={classes.formControl}>
         <InputLabel htmlFor="category">Category</InputLabel>
         <Select
@@ -533,6 +544,7 @@ export default function AddDamagedStock() {
                     name="cost"
                     onChange={handleCost}
                     value={state.cost}
+                    type="number"
                   />        
 
         {/*         <TextField
@@ -554,7 +566,7 @@ export default function AddDamagedStock() {
                     value={state.quantity}
                                                onChange={handleChanged}
                                             style={{width:"60px"}}
-                                
+                                            type="number"
                                             
                                 />        
                    
@@ -571,12 +583,13 @@ export default function AddDamagedStock() {
                                 color="primary"
                                 onClick={addItem}
                                     >
-                                Add
+                  Add
                             </Button>
+                            <span style={{paddingLeft:"10px"}}></span>
                             <Button
                                     style={{paddingLeft:"3px", width:"90px"}}
                                     variant="contained"
-                                color="primary"
+                                color="secondary"
                                 onClick={handleClose}
                                     >
                                         Cancel

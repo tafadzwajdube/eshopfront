@@ -151,7 +151,7 @@ export default function AddStock() {
 
       const products = useSelector(state => state.products.items)
       const categories = useSelector(state => state.categories.items)
-    
+      const [myerror,setErrors] = useState()
     
     const [open, setOpen] = React.useState(false);
     const [x, setX] = React.useState(1);
@@ -170,35 +170,56 @@ export default function AddStock() {
 
   const handleClose = () => {
     setOpen(false);
+    setErrors('')
+    setState({
+      ...state,
+      ['category']: '',
+      ['product']: '',
+      ['brand']: '',
+      ['mybrands']: [],
+      ['chosenbrand']: {},
+      ['cost']: '',
+      ['quantity']: '',
+      ['myproductid']: ''
+    });
   };
     
   const addItem = () => {
-    console.log('cost')
-        console.log(state.cost)
-        var xrows = myRows;
-        const cbrand=state.chosenbrand
+
+    if (state.category != '' &&
+      state.myproductid != '' &&
+      state.brand != '' &&
+      state.quantity != '' &&
+      state.myunitcost != ''
+    ) {
+      var xrows = myRows;
+      const cbrand = state.chosenbrand
       const price = priceRow(state.quantity, state.cost);
       const myunitcost = state.cost / state.quantity;
-        xrows.push({product_id:state.myproductid,id:cbrand.id, item: state.brand, quantity: state.quantity, unit: myunitcost, price: price });
+      xrows.push({ product_id: state.myproductid, id: cbrand.id, item: state.brand, quantity: state.quantity, unit: myunitcost, price: price });
 
-        setRows(xrows);
-        var d = x +1;
-        setX(d)
-        setOpen(false);
+      setRows(xrows);
+      var d = x + 1;
+      setX(d)
+      setOpen(false);
 
-        //clear state
+      //clear state
 
-        setState({
-            ...state,
-            ['category']: '',
-            ['product']: '',
-            ['brand']: '',
-            ['mybrands']: [],
-          ['chosenbrand']: {},
-          ['cost']: '',
-          ['quantity']: '',
-          ['myproductid']:''
-          });
+      setState({
+        ...state,
+        ['category']: '',
+        ['product']: '',
+        ['brand']: '',
+        ['mybrands']: [],
+        ['chosenbrand']: {},
+        ['cost']: '',
+        ['quantity']: '',
+        ['myproductid']: ''
+      });
+    }
+    else {
+      setErrors('All fields are required')
+  }
 
     }
 
@@ -260,30 +281,33 @@ export default function AddStock() {
     
   
     const handleStock = () => {
-     var items=[]
+      var items = []
+      
+     
         myRows.map(row => {
-            const item = {
-                product_id:row.product_id,
-                brand_id: row.id,
-                quantity: row.quantity,
-                unit_cost: row.unit,
-                total_cost: row.price
+          const item = {
+            product_id: row.product_id,
+            brand_id: row.id,
+            quantity: row.quantity,
+            unit_cost: row.unit,
+            total_cost: row.price
                 
                 
-            }
-            items.push(item)
-        } )
-     const   stock = {
-           products: items,
-            total_price:invoiceTotal,
+          }
+          items.push(item)
+        })
+        const stock = {
+          products: items,
+          total_price: invoiceTotal,
         }
 
         console.log(stock)
-      dispatch(newStock(stock));
-      dispatch(fetchBrands());
+        dispatch(newStock(stock));
+        dispatch(fetchBrands());
        
 
         setRows([])
+      
     }
   
     const errors = useSelector(state => state.error.errors)
@@ -471,7 +495,8 @@ export default function AddStock() {
       >
         <Fade in={open}>
                     <div className={classes.paper}>
-        <form style={{width:'250px'}}>
+                <form style={{ width: '250px' }}>
+                {myerror&&<span style={{ color: 'red' }}>{myerror}</span>}
           <FormControl className={classes.formControl}>
         <InputLabel htmlFor="category">Category</InputLabel>
         <Select

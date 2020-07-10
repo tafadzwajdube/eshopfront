@@ -52,8 +52,8 @@ export default function ProductForm() {
   const dispatch = useDispatch();
 
     const classes = useStyles();
-    const [name, setName] = useState()
-    const[category, setCategory]=useState()
+    const [name, setName] = useState('')
+    const[category, setCategory]=useState('')
     
     const categories = useSelector(state => state.categories.items)
 
@@ -62,7 +62,8 @@ export default function ProductForm() {
     const handleChange =(e)=> {
       setName(e.target.value)
     };
-
+  const [myerror, setErrors] = useState('')
+  
     const handleChangeC =(e)=> {
         setCategory(e.target.value)
       };
@@ -71,6 +72,8 @@ export default function ProductForm() {
 
       const timer = setTimeout(() => {
         dispatch(clearErrors())
+        setErrors('')
+        
         
       }, 5000);
       return () => clearTimeout(timer);
@@ -90,13 +93,15 @@ export default function ProductForm() {
           const handleSubmit = e => {
             e.preventDefault();
            
-    
+            if (name != '' && category!='') {
               const product = {
                 name: name,
                 category:category
             }
             dispatch(newProduct(product))
             setOpenedForm(false)
+          }
+            setErrors("All fields required")
             
           }
     
@@ -118,7 +123,8 @@ export default function ProductForm() {
             <Paper elevation={3}
             
             >
-            {openedForm && <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
+              {openedForm && <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
+              {myerror && <Alert severity="error">{myerror}</Alert>} 
                 <Typography style={{ textAlign: 'center' }} variant="overline" display="block" gutterBottom>
             New Product
     </Typography>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import {Paper, IconButton, InputLabel, OutlinedInput,InputAdornment, FormControl, Typography, Button } from '@material-ui/core';
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
 
     const auth = useSelector(state => state.user.loggedin);
     const token = useSelector(state => state.user.user);
-
+ const[myerror, setErrors]=useState('')
     useEffect(() => {
   
          if (auth) {
@@ -52,6 +52,7 @@ const useStyles = makeStyles(theme => ({
         } 
         const timer = setTimeout(() => {
             dispatch(clearErrors())
+            setErrors('')
             
           }, 10000);
           return () => clearTimeout(timer);
@@ -86,15 +87,23 @@ const useStyles = makeStyles(theme => ({
     function handleSubmit() {
 
         console.log('submit')
-        const userDetails = {
-          email: values.email,
-          password: values.password
+        if (values.email != '' &&
+            values.password != ''
+        ) {
+            const userDetails = {
+                email: values.email,
+                password: values.password
+            }
+       
+            dispatch(login(userDetails, () => {
+                props.history.push('/')
+            }));
         }
-       
-        dispatch(login(userDetails, () => {
-            props.history.push('/')
-        }));
-       
+
+        else
+        {
+            setErrors('All fields are required')
+            }
        
     
     }
@@ -107,7 +116,8 @@ const useStyles = makeStyles(theme => ({
                 
                 <Paper elevation={3} className={classes.paper}>
                     <div>
-                    {errors && <Alert severity="error">{errors.message}</Alert>} 
+                        {errors && <Alert severity="error">{errors.message}</Alert>}
+                    {myerror&& <span style={{color:'red'}}>{myerror}</span>}    
         {success && <Alert severity="success">Family added</Alert>}
                         <Typography variant="h6" gutterBottom>
                             Admin Login

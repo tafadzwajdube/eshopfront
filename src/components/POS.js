@@ -106,6 +106,7 @@ export default function POS() {
 
    
 
+      const [myerror,setErrors] = useState()
       const errors = useSelector(state => state.error.errors)
       const success = useSelector(state => state.error.success)
   const products = useSelector(state => state.products.items)
@@ -120,6 +121,16 @@ export default function POS() {
     
   const handleOpen = () => {
     setOpen(true);
+    setErrors('')
+    setState({
+      ...state,
+      ['category']: '',
+      ['product']: '',
+      ['brand']: '',
+      ['mybrands']: [],
+      ['chosenbrand']: {},
+      ['productID']: ''
+    });
   };
 
   const handleClose = () => {
@@ -128,27 +139,36 @@ export default function POS() {
     
     const addItem = () => {
         console.log(myRows)
-        var xrows = myRows;
-        const cbrand=state.chosenbrand
+      var xrows = myRows;
+      if (state.category != '' &&
+        state.productID != '' &&
+        state.brand != '' &&
+        state.quantity != '') {
+        const cbrand = state.chosenbrand
         const price = priceRow(state.quantity, cbrand.price_zim_rand);
-        xrows.push({product_id:state.productID, id:cbrand.id, item: state.brand, quantity: state.quantity, unit: cbrand.price_zim_rand, price: price });
+        xrows.push({ product_id: state.productID, id: cbrand.id, item: state.brand, quantity: state.quantity, unit: cbrand.price_zim_rand, price: price });
 
         setRows(xrows);
-        var d = x +1;
+        var d = x + 1;
         setX(d)
         setOpen(false);
 
         //clear state
 
         setState({
-            ...state,
-            ['category']: '',
-            ['product']: '',
-            ['brand']: '',
-            ['mybrands']: [],
+          ...state,
+          ['category']: '',
+          ['product']: '',
+          ['brand']: '',
+          ['mybrands']: [],
           ['chosenbrand']: {},
-            ['productID']:''
-          });
+          ['productID']: ''
+        });
+      }
+
+      else (
+        setErrors('All fields are required')
+      )
 
     }
 
@@ -428,7 +448,8 @@ export default function POS() {
       >
         <Fade in={open}>
                     <div className={classes.paper}>
-        <form style={{width:'250px'}}>
+                <form style={{ width: '250px' }}>
+                  {myerror&&<span style={{ color: 'red' }}>{myerror}</span>}
           <FormControl className={classes.formControl}>
         <InputLabel htmlFor="category">Category</InputLabel>
         <Select

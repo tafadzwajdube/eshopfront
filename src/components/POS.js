@@ -101,12 +101,14 @@ export default function POS() {
         quantity: 1,
         unit_price: 10,
         mybrands: [],
-        chosenbrand:{}
+      chosenbrand: {},
+      myprice: ''
       });
 
    
 
-      const [myerror,setErrors] = useState()
+  const [myerror, setErrors] = useState()
+  const user = useSelector(state => state.user.user)
       const errors = useSelector(state => state.error.errors)
       const success = useSelector(state => state.error.success)
   const products = useSelector(state => state.products.items)
@@ -145,8 +147,8 @@ export default function POS() {
         state.brand != '' &&
         state.quantity != '') {
         const cbrand = state.chosenbrand
-        const price = priceRow(state.quantity, cbrand.price_zim_rand);
-        xrows.push({ product_id: state.productID, id: cbrand.id, item: state.brand, quantity: state.quantity, unit: cbrand.price_zim_rand, price: price });
+        const price = priceRow(state.quantity, state.myprice);
+        xrows.push({ product_id: state.productID, id: cbrand.id, item: state.brand, quantity: state.quantity, unit: state.myprice, price: price });
 
         setRows(xrows);
         var d = x + 1;
@@ -205,12 +207,20 @@ export default function POS() {
             console.log(state.mybrands)
         }
 
-        if (event.target.name == 'brand') {
+      if (event.target.name == 'brand') {
+          let p
             const thebrand = state.mybrands.find(b=> b.name == nameid);
-            
+           
+          
+          if (user.id == 6)
+             p = thebrand.price_sa
+          else
+            p = thebrand.price_zim_rand
+          
             setState({
                 ...state,
-                ["chosenbrand"]: thebrand,
+              ["chosenbrand"]: thebrand,
+              ["myprice"]: p,
                 [name]: event.target.value,
             });
           
@@ -246,38 +256,41 @@ export default function POS() {
         setRows([])
     }
     
-    const handleSaleClick = () => {
+  const handleSaleClick = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Make Sale!'
+    }).then((result) => {
+     
+      if (result.value) {
+        handleSale()
+      if (errors) {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Make Sale!'
-          }).then((result) => {
-          handleSale()
-          if (result.value && errors) {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Something went wrong!',
-              footer: {errors}
-              }
-              ).then(
-              //  
-              console.log('helalsnn')
-            )
-          }
-          else {
-            Swal.fire(
-              'Successful!',
-              'Sale has been added.',
-              'success'
-            )
-          }
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          footer: { errors }
+        }
+        ).then(
+          //  
+          console.log('helalsnn')
+        )
+      }
+      else {
+        Swal.fire(
+          'Successful!',
+          'Sale has been added.',
+          'success'
+        )
+      }
             
-          })
+    }
+        })
     }
     
     const handleCancelSale = () => {
@@ -503,7 +516,19 @@ export default function POS() {
                                         )}
                             </Select>
                             </FormControl>
-                            
+                  <FormControl className={classes.formControl}>
+                  <TextField
+                           value={state.myprice}
+                           onChange={handleChanged}
+                           style={{width:"60px"}}
+                           inputProps={{
+                            name: 'myprice',
+                            id: 'myprice',
+                          }}
+                          type='number'
+                                            
+                                />   
+                  </FormControl>    
                             <FormControl className={classes.formControl}>
                            
                             <Grid

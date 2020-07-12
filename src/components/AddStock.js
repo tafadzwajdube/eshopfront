@@ -313,38 +313,41 @@ export default function AddStock() {
     const errors = useSelector(state => state.error.errors)
     const success = useSelector(state => state.error.success)
   
-    const handleStockClick = () => {
+  const handleStockClick = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Add Stock!'
+    }).then((result) => {
+      
+      if (result.value) {   
+      handleStock()
+      if (errors) {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Add Stock!'
-        }).then((result) => {
-          handleStock()
-          if (result.value && errors) {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Something went wrong!',
-              footer: {errors}
-              }
-              ).then(
-              //  
-              console.log('helalsnn')
-            )
-          }
-          else {
-            Swal.fire(
-              'Stock added!',
-              'Stoke has been added.',
-              'success'
-            )
-          }
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          footer: { errors }
+        }
+        ).then(
+          //  
+          console.log('helalsnn')
+        )
+      }
+      else {
+        Swal.fire(
+          'Stock added!',
+          'Stoke has been added.',
+          'success'
+        )
+      }
             
-          })
+    }
+      })
     }
     
     const handleCancelStock = () => {

@@ -517,10 +517,11 @@ export default function POS() {
                             </Select>
                             </FormControl>
                   <FormControl className={classes.formControl}>
-                  <TextField
+                    <TextField
+                       label="Unit Cost"
                            value={state.myprice}
                            onChange={handleChanged}
-                           style={{width:"60px"}}
+                           style={{width:"100px"}}
                            inputProps={{
                             name: 'myprice',
                             id: 'myprice',

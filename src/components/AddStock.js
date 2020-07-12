@@ -558,7 +558,7 @@ export default function AddStock() {
                 <FormControl className={classes.formControl}>
                   
                <TextField
-                    label="Cost"
+                    label="Total Cost"
                     name="cost"
                     onChange={handleCost}
                       value={state.cost}

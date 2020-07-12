@@ -212,7 +212,7 @@ export default function POS() {
             const thebrand = state.mybrands.find(b=> b.name == nameid);
            
           
-          if (user.id == 6)
+          if (user.id === 6)
              p = thebrand.price_sa
           else
             p = thebrand.price_zim_rand

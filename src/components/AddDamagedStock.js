@@ -543,7 +543,7 @@ export default function AddDamagedStock() {
                 <FormControl className={classes.formControl}>
                   
                <TextField
-                    label="Cost"
+                    label="Total Cost"
                     name="cost"
                     onChange={handleCost}
                     value={state.cost}

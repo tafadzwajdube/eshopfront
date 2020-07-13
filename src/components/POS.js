@@ -35,7 +35,8 @@ export default function POS() {
         [ ]
    )
 
-    const TAX_RATE = 0;
+  const TAX_RATE = 0;
+  const TRANSPORT_RATE = 0.35;
     
     /* const useStyles = makeStyles({
       table: {
@@ -89,7 +90,10 @@ export default function POS() {
     
     const invoiceSubtotal = subtotal(myRows);
     const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-    const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+  //const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+  
+  const transportTaxes = TRANSPORT_RATE * invoiceSubtotal;
+  const invoiceTotal = invoiceTaxes + transportTaxes + invoiceSubtotal;
 
 
     const classes = useStyles();
@@ -211,8 +215,10 @@ export default function POS() {
           let p
             const thebrand = state.mybrands.find(b=> b.name == nameid);
            
-          
-          if (user.id === 6)
+        
+            console.log("ID")
+          console.log(user.user.id)
+          if (user.user.id === 6)
              p = thebrand.price_sa
           else
             p = thebrand.price_zim_rand
@@ -339,7 +345,7 @@ export default function POS() {
       <React.Fragment>
         <div style={{paddingLeft: '10px', paddingRight:'10px'}}>
 <br></br>
-            <Button variant="contained" color="primary" onClick={handleOpen}>Add <AddIcon/></Button>
+            <Button variant="contained" color="primary" onClick={handleOpen}>Add Sale Item <AddIcon/></Button>
 
             <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="spanning table">
@@ -436,6 +442,11 @@ export default function POS() {
             <TableCell>Tax</TableCell>
             <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
             <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
+                    </TableRow>
+                    <TableRow>
+            <TableCell>Transport</TableCell>
+            <TableCell align="right">{`${(TRANSPORT_RATE * 100).toFixed(0)} %`}</TableCell>
+            <TableCell align="right">{ccyFormat(transportTaxes)}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell colSpan={2}>Total</TableCell>

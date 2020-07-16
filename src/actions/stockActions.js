@@ -127,7 +127,7 @@ export function fetchDamaged() {
 
   return async function (dispatch) {
         
-    await axios.get("https://store.ubhejanelabs.com/api/damagedstock")
+    await axios.get("https://store.ubhejanelabs.com/api/damagedstocks")
       .then(stocks => dispatch({
         type: FETCH_DAMAGED,
         payload: stocks.data

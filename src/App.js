@@ -16,6 +16,9 @@ import { setuser } from './actions/userActions';
 import LoginForm from "./components/LoginForm.js";
 import ViewPrices from './components/ViewPrices'
 import AddDamagedStock from './components/AddDamagedStock';
+import SalesManager from './components/SalesManager';
+import InventoryManager from './components/IventoryManager';
+import Analyse from './components/Analyse'
 
 
 function App() {
@@ -68,7 +71,9 @@ function App() {
       <Route path="/inventory" component={Inventory} />
             <Route path="/prices" component={ViewPrices} />
             <Route path="/productmanager" component={ProductManager} />
-            <Route path="/inventorymanager" component={AddDamagedStock} />
+            <Route path="/inventorymanager" component={InventoryManager} />
+            <Route path="/salesmanager" component={SalesManager} />
+            <Route path="/analyse" component={Analyse} />
                         
                     </Grid>
         </Grid>

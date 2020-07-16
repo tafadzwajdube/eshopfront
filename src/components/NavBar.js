@@ -16,7 +16,8 @@ import GridItem from "./components/Grid/GridItem.js";
 import Header from "./components/Header/Header.js";
 import CustomInput from "./components/CustomInput/CustomInput.js";
 import CustomDropdown from "./components/CustomDropdown/CustomDropdown.js";
-import Button from "./components/CustomButtons/Button.js";
+//import Button from "./components/CustomButtons/Button.js";
+import Button from "@material-ui/core/Button"
 
 import image from "../assets/img/bg.jpg";
 import profileImage from "../assets/img/faces/avatar.jpg";
@@ -31,6 +32,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { logout } from '../actions/userActions'
 import { withRouter } from 'react-router';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const useStyles = makeStyles(styles);
 
@@ -108,6 +111,18 @@ const handleClose = () => {
         
         mobileLinks={
           <List className={classes.list}>
+            <ListItem className={classes.listItem}>
+              <Button style={{ color: "white" }}>
+              <NavLink style={{
+                  color: 'white',
+                  textTransform: 'none !important',
+                  textDecoration: 'none',
+                  fontWeight: 'normal'
+                }}
+                  to="/analyse" color="inherit">Analyse</NavLink>
+                <AssessmentIcon/>
+               </Button> 
+             </ListItem>
           <ListItem className={classes.listItem}>
           <IconButton
           aria-label="account of current user"
@@ -146,7 +161,13 @@ const handleClose = () => {
                   fontWeight: 'normal'
                 }}
                   to="/productmanager" color="inherit">Product Manager</NavLink></MenuItem>
-                <MenuItem onClick={handleClose}>Sales Manager</MenuItem>
+                <MenuItem onClick={handleClose}><NavLink style={{
+                  color: 'black',
+                  textTransform: 'none !important',
+                  textDecoration: 'none',
+                  fontWeight: 'normal'
+                }}
+                  to="/salesmanager" color="inherit">Sales Manager</NavLink></MenuItem>
                 <MenuItem onClick={handleClose}>
                 <NavLink style={{
                   color: 'black',

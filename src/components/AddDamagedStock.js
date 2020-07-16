@@ -359,7 +359,8 @@ export default function AddDamagedStock() {
 
     return (
 
-        <React.Fragment>
+      <React.Fragment>
+        <div style={{paddingLeft: '10px', paddingRight:'10px'}}>
 <br></br>
             <Button variant="contained" color="secondary" onClick={handleOpen}>Add Damaged item</Button>
 
@@ -606,7 +607,7 @@ export default function AddDamagedStock() {
             
 
             
-            
+      </div>
         </React.Fragment>
     )
 }

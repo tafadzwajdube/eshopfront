@@ -29,7 +29,7 @@ const headerStyle = {
     flexFlow: "row nowrap",
     justifyContent: "flex-start",
     position: "fixed",
-    zIndex: "unset"
+    zIndex: "100"
   },
   absolute: {
     position: "absolute",

@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import { fetchProducts } from '../actions/productActions'
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { fetchBrands } from '../actions/brandActions'
+import { fetchStocks } from '../actions/stockActions'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 export default function Inventory() { 
@@ -27,6 +28,7 @@ export default function Inventory() {
 
     useEffect(() => {
      
+      dispatch(fetchStocks());
       dispatch(fetchBrands());
     
     }, [state.view])

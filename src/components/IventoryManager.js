@@ -35,22 +35,25 @@ export default function InventoryManager(){
 
             <Button
                 name='vs'
+                size="medium"
                 onClick={() => view('vs')}
-                style={{color:'#1aa3ff'}}
+                style={{color:'#1aa3ff',fontSize:"12px"}}
             >
                 View Stock
             </Button> 
             <Button
-              name='vd'
+                name='vd'
+                size="medium"
                 onClick={() => view('vd')}
-                style={{color:'#1aa3ff'}}
+                style={{color:'#1aa3ff',fontSize:"12px"}}
             >
                 View Damaged
             </Button> 
             <Button
-              name='ad'
+                name='ad'
+                size="medium"
                 onClick={() => view('ad')}
-                style={{color:'#1aa3ff'}}
+                style={{color:'#1aa3ff', fontSize:"12px"}}
             >
                 Add Damaged
             </Button>

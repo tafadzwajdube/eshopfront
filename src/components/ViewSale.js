@@ -41,7 +41,8 @@ function createData(name, calories, fat, carbs, protein, price) {
 }
 
 function ccyFormat(num) {
-  return `${num.toFixed(2)}`;
+  const mynum =parseFloat(num)
+  return `${mynum.toFixed(2)}`;
 }
 
 function Row(props) {

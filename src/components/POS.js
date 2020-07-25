@@ -36,7 +36,7 @@ export default function POS() {
    )
 
   const TAX_RATE = 0;
-  const TRANSPORT_RATE = 0.35;
+  const TRANSPORT_RATE = 0.4;
     
     /* const useStyles = makeStyles({
       table: {
@@ -253,7 +253,8 @@ export default function POS() {
         } )
      const   sale = {
             products: items,
-            total_price:invoiceTotal,
+       total_price: invoiceTotal,
+       trans_percentage:TRANSPORT_RATE
         }
 
       console.log(sale)

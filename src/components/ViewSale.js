@@ -15,6 +15,11 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { connect, useSelector, useDispatch } from 'react-redux';
+import {deleteSale} from '../actions/saleActions'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import Swal from 'sweetalert2';
+
+import { clearErrors } from '../actions/errorActions'
 
 
 const useRowStyles = makeStyles({
@@ -73,7 +78,69 @@ const findB = (id) => {
   if (b) return b.name
   else return "noname"
   }
+
+  const errors = useSelector(state => state.error.errors)
+      const success = useSelector(state => state.error.success)
+  const dispatch = useDispatch();
   
+  useEffect(() => {
+  
+    const timer = setTimeout(() => {
+      dispatch(clearErrors())
+     
+          
+    }, 5000);
+    return () => clearTimeout(timer);
+  })
+  
+  
+  const handleDeleteSale = (id) => {
+    
+
+    dispatch(deleteSale(id))
+
+  }
+
+  
+  const handleSaleClick = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You want to delete sale, you cannot revert!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete Sale!'
+    }).then((result) => {
+     
+      if (result.value) {
+        handleDeleteSale(id)
+      if (errors) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          footer: { errors }
+        }
+        ).then(
+          //  
+          console.log('helalsnn')
+        )
+      }
+      else {
+        Swal.fire(
+          'Successful!',
+          'Sale has been deleted.',
+          'success'
+        )
+      }
+            
+    }
+        })
+    }
+    
+
+
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -83,8 +150,8 @@ const findB = (id) => {
           </IconButton>
         </TableCell>
         <TableCell align="right">{row.created_at}</TableCell>
-        <TableCell align="right">{row.location}</TableCell>
-        <TableCell align="right">{ccyFormat(row.total)}</TableCell>
+        <TableCell align="right">{row.location} <IconButton onClick={() => handleSaleClick(row.id)} color="secondary"><DeleteForeverIcon/></IconButton></TableCell>
+        <TableCell align="right"><TableRow>{ccyFormat(row.total_groc)}</TableRow><TableRow>{ccyFormat(row.transport)}</TableRow><hr></hr><TableRow>{ccyFormat(row.total)}</TableRow></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

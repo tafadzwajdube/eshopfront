@@ -93,7 +93,7 @@ export function deleteSale(id) {
 return async function (dispatch) {
 
     
-    await axios.delete('https://store.ubhejanelabs.com/api/sale'+id, {
+    await axios.delete('https://store.ubhejanelabs.com/api/sale/'+id, {
      headers:headers
     })
       .then(sale => {

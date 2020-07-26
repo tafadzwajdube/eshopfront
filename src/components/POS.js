@@ -28,15 +28,20 @@ import { connect, useSelector, useDispatch } from 'react-redux';
 
 import { newSale } from '../actions/saleActions'
 
-export default function POS() {
+export default function POS(props) {
 
+  console.log("user "+ props.user)
   const dispatch = useDispatch();
     const [myRows, setRows] = useState(
         [ ]
    )
 
   const TAX_RATE = 0;
-  const TRANSPORT_RATE = 0.40;
+let TRANSPORT_RATE
+  if (props.user === 6)
+   TRANSPORT_RATE = 0.40;
+else
+TRANSPORT_RATE = 0.00;
     
     /* const useStyles = makeStyles({
       table: {
@@ -524,7 +529,7 @@ export default function POS() {
         >
           <option aria-label="None" value="" />
           {state.mybrands.map(brand =>
-            <option value={brand.name}>{brand.name}</option>
+            <option value={brand.name} disabled={brand.quantity==0 ? true : null}>{brand.name}</option>
                                         )}
                             </Select>
                             </FormControl>

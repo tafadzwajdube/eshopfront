@@ -24,6 +24,7 @@ import Analyse from './components/Analyse'
 function App() {
 
   const user = useSelector(state => state.user.loggedin)
+  const myuser = useSelector(state => state.user.user)
 
   useEffect(() => {
   
@@ -55,7 +56,7 @@ function App() {
                 ( 
                   <div>
                     {user ?
-                      <POS />
+                      <POS user={myuser.user.id}/>
                       :
                       <React.Fragment>
                       
